@@ -1,0 +1,42 @@
+
+;;
+; testing
+
+;;
+;
+to-report dump-world
+  let res []
+  let px min-pxcor let py min-pycor
+  repeat (max-pxcor - min-pxcor + 1)[
+     set py min-pycor
+    repeat (max-pycor - min-pycor + 1)[
+      ask patch px py [set res lput pcolor res]
+      set py py + 1
+    ]
+    set px px + 1 
+  ]
+  report res
+end
+
+
+;;
+;
+to-report dump-agents
+  let sortedhumans sort-by [[?1 ?2] -> [who] of ?1 < [who] of ?2] humans
+  let humanres []
+  foreach sortedhumans [
+    ? -> ask ? [
+       set humanres lput (list xcor ycor panic-time paralysis-time kills) humanres
+    ] 
+  ]
+  
+  let sortedzombies sort-by [[?1 ?2] -> [who] of ?1 < [who] of ?2] zombies
+  let zombiesres []
+  foreach sortedzombies [
+    ? -> ask ? [
+      set zombiesres lput (list xcor ycor chasing-time lifespan paralysis-time kills) zombiesres
+    ] 
+  ]
+  
+end
+

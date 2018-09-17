@@ -26,6 +26,10 @@ to setup-globals
   
   set final-time 2160
   
+  ;set setup-type "random"
+  ;set setup-type "blocks"
+  set setup-type "original"
+  
 end
 
 
@@ -43,22 +47,19 @@ to setup-agents
 
   create-humans num-humans [new-human]
 
-  create-military num-military [
-    set color red
-    set shape "face neutral"
-    set size 0.5
-    set pen-size 0.5
-  ]
+  create-military num-military [new-military]
 
   ask turtles [
-    setxy random-float world-width random-float world-height
-    ; FIXME useless, heading is already random
-    ;set heading random-float 360
+    let dest one-of (patches with [pcolor = black])
+    move-to dest
+    
+    ;setxy random-float world-width random-float world-height
+    
     set paralysis-time 0
     set kills 0
     
     ; FIXME better locate directly on non built patches
-    while [pcolor != black] [fd 1]
+    ;while [pcolor != black] [fd 1]
   ]
 end
 
@@ -66,6 +67,25 @@ end
 
 to setup-world
   clear-patches
+  
+  if setup-type = "random" [
+    ask n-of (count patches / 10) patches [set pcolor gray - 3]
+  ]
+  
+  if setup-type = "blocks" [
+    ; use the num-squares parameter
+    ask n-of num-squares patches [set setup-block 1]
+    repeat 20 [diffuse setup-block 0.5]
+    ask patches with [setup-block > 0][set pcolor gray - 3]
+  ]
+  
+  if setup-type = "centers" [
+    ; implementing density at an other spatial scale would imply an other process for random walk (linked to density gradient)
+    
+  ]
+  
+  if setup-type = "original" [
+  
   ask patches [
     ;; FIXME patch color should not be used as a state variable
     set pcolor gray - 3
@@ -95,12 +115,14 @@ to setup-world
     while [pcolor != black] [
       set pcolor black
       fd 1
-      if random-float 1 < (1 / 30) [lt 90 + 180 * random 2]
+        ; probability to have angles
+      if random-float 1 < 0.05;(1 / 30) 
+        [lt 90 + 180 * random 2]
     ]
   ]
 
   ;; Make the squares, by getting a few diggers to dig them out.
-  ct
+  clear-turtles
   create-diggers num-squares [
     setxy random-float world-width random-float world-height
     let xsize 2 + random 60
@@ -110,6 +132,7 @@ to setup-world
       foreach n-values ysize [ ??1 -> ??1 ] [ ??1 -> ask patch-at x ??1 [set pcolor black] ]
     ]
   ]
-  
   clear-turtles
+  ]
+    
 end
