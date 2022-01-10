@@ -67,6 +67,10 @@ globals [
 
 
 patches-own [
+  ;;
+  ; specific variable for type
+  patch-type
+
   fade-time
 
   setup-block

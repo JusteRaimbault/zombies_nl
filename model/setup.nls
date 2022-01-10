@@ -28,7 +28,8 @@ to setup-globals
   
   ;set setup-type "random"
   ;set setup-type "blocks"
-  set setup-type "original"
+  ;set setup-type "original"
+  set setup-type "us-city"
   
 end
 
@@ -77,6 +78,21 @@ to setup-world
     ask n-of num-squares patches [set setup-block 1]
     repeat 20 [diffuse setup-block 0.5]
     ask patches with [setup-block > 0][set pcolor gray - 3]
+  ]
+  
+  if setup-type = "us-city" [
+   ;; more or less regular grid
+    ask patches [set pcolor gray - 3]
+    let px min-pxcor 
+    while [px <= max-pxcor] [
+      ask patches with [pxcor = px][set pcolor black]
+     set px px + 5 + random 6 
+    ]
+    let py min-pycor 
+    while [py <= max-pycor] [
+      ask patches with [pycor = py][set pcolor black]
+     set py py + 5 + random 6 
+    ]
   ]
   
   if setup-type = "centers" [
