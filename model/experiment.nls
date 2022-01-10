@@ -1,0 +1,15 @@
+
+;;
+; experiment procedures
+
+
+to setup-experiment
+  
+end
+
+
+
+
+to run-experiment
+  run-model
+end

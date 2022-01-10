@@ -4,12 +4,15 @@
 
 to action-militaries
 
-
-ask military with [paralysis-time <= 0] [
+let pmilitary (military with [paralysis-time <= 0])
+  
+ask n-of (count pmilitary / 5) pmilitary [
     
     ; FIXME should better use a random selection with n-of instead of misusing who
-  if (who - ticks) mod 5 = 0 [
-    let beings-seen turtles in-cone vision-distance vision-angle with [self != myself]
+    
+  ;if (who - ticks) mod 5 = 0 [
+      
+    let beings-seen ((turtles in-cone vision-distance vision-angle) with [self != myself])
     ;; run towards zombies
     ifelse any? beings-seen with [breed = zombies] [
       let target one-of beings-seen with [breed = zombies]
@@ -30,8 +33,11 @@ ask military with [paralysis-time <= 0] [
         detonate-nuke
       ]
     ]
+  ;]
   ]
-
+  
+  ask pmilitary [
+    
   step-turnily 1
 
   set kills kills + count zombies-here
@@ -48,4 +54,12 @@ ask military with [paralysis-time <= 0] [
   ]
 ]
 
+end
+
+
+to new-military
+  set color red
+  set shape "face neutral"
+  set size 0.5
+  set pen-size 0.5
 end

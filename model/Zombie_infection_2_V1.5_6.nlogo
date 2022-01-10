@@ -1,3 +1,6 @@
+extensions [profiler]
+
+
 __includes [
 
   "setup.nls"
@@ -15,10 +18,24 @@ __includes [
 
   "display.nls"
 
+  "experiment.nls"
+
+  ;;;;
+  ;; testing
+  "test.nls"
+
 ]
 
 
 globals [
+
+
+  ;;;;;;;
+  ;; Setup
+  ;;;;;;;
+
+  setup-type
+
 
   ;;;;;;;
   ;; Runtime
@@ -50,7 +67,13 @@ globals [
 
 
 patches-own [
+  ;;
+  ; specific variable for type
+  patch-type
+
   fade-time
+
+  setup-block
 ]
 
 turtles-own [
@@ -129,7 +152,11 @@ num-zombies
 num-zombies
 0
 64
+<<<<<<< HEAD
 3.0
+=======
+20.0
+>>>>>>> profiling
 1
 1
 NIL
@@ -377,7 +404,7 @@ zombie-acuteness
 zombie-acuteness
 0
 4
-1.5
+1.56
 0.01
 1
 NIL
@@ -418,16 +445,26 @@ zombie-lifespan
 zombie-lifespan
 50
 5000
+<<<<<<< HEAD
 720.0
+=======
+2014.0
+>>>>>>> profiling
 1
 1
 NIL
 HORIZONTAL
 
 SLIDER
+<<<<<<< HEAD
 336
 314
 455
+=======
+337
+314
+456
+>>>>>>> profiling
 347
 nom-time
 nom-time
@@ -506,10 +543,17 @@ mean [lifespan] of zombies
 11
 
 SLIDER
+<<<<<<< HEAD
 333
 347
 451
 380
+=======
+338
+348
+456
+381
+>>>>>>> profiling
 nom-boost
 nom-boost
 0
@@ -529,7 +573,7 @@ vision-distance
 vision-distance
 1
 100
-10.0
+20.0
 1
 1
 NIL
@@ -544,7 +588,11 @@ vision-angle
 vision-angle
 1
 360
+<<<<<<< HEAD
 45.0
+=======
+22.0
+>>>>>>> profiling
 1
 1
 NIL
@@ -668,7 +716,7 @@ zombie-speed-factor
 zombie-speed-factor
 0
 2
-0.27
+0.83
 0.01
 1
 NIL
@@ -724,6 +772,7 @@ Zombies
 0.0
 1
 
+<<<<<<< HEAD
 TEXTBOX
 44
 522
@@ -755,6 +804,14 @@ simulation-seed
 1
 0
 Number
+=======
+OUTPUT
+590
+436
+1098
+703
+13
+>>>>>>> profiling
 
 @#$#@#$#@
 ## WHAT IS IT?
